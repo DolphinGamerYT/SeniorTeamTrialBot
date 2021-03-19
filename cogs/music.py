@@ -58,7 +58,7 @@ class Music(commands.Cog):
 
         return await utils.send_error_embed(ctx.channel, "Invalid Channel", "You need to be in a voice channel for me to join!")
 
-    @commands.command(name="leave")
+    @commands.command(name="leave", aliases=["stop", "quit"])
     @commands.guild_only()
     @commands.check(in_voice_channel)
     async def _leave(self, ctx):
