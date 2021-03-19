@@ -126,7 +126,6 @@ class Music(commands.Cog):
             return
 
         song = Song(video)
-        print(self.guilds)
         state.queue.append(song)
 
         embed = song.get_embed()
