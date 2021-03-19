@@ -4,6 +4,17 @@ color_main = 0xA430C0
 color_red = 0xFF0000
 
 
+def hex_to_rgb(value: str):
+    value = value.lstrip('#')
+    lv = len(value)
+    return tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
+
+
+def hex_to_colour(hex: str) -> discord.Colour:
+    r, g, b = hex_to_rgb(hex)
+    return discord.Colour.from_rgb(r, g, b)
+
+
 async def send_error_embed(channel: discord.TextChannel, title, description):
     embed = discord.Embed(title=title, description=description,
                           timestamp=datetime.utcnow(), color=color_red)
