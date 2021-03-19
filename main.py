@@ -16,6 +16,8 @@ class Bot(commands.AutoShardedBot):
             self.token = config["token"]
             self.prefix = config["prefix"]
             self.color = utils.hex_to_colour(config["color"])
+            self.green_color = 0x0FFF00
+            self.red_color = 0xff0000
         intents = discord.Intents.default()
         intents.members = True
         super().__init__(command_prefix=self.prefix, case_insensitive=True, intents=intents)
