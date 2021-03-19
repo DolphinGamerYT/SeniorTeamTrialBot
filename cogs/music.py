@@ -136,6 +136,19 @@ class Music(commands.Cog):
         if state.playing is None:
             self._play_song(client, state, song)
 
+    @commands.guild_only()
+    @commands.check(in_voice_channel)
+    @commands.check(audio_playing)
+    @commands.command(name="playing", aliases=["np", "nowplaying"])
+    async def _playing(self, ctx):
+        state = self.get_state(ctx.guild)
+        if state.playing is None:
+            return await utils.send_error_embed(ctx.channel, "Nothing playing", "There isn't any song playing right now.")
+
+        embed = state.playing.get_embed()
+        embed.color = self.bot.color
+        embed.title = "Now playing"
+        await ctx.channel.send(embed=embed)
 
 class GuildInfo:
 
