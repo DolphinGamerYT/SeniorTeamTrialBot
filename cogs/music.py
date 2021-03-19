@@ -80,6 +80,7 @@ class Music(commands.Cog):
     @commands.guild_only()
     @commands.check(audio_playing)
     @commands.check(in_voice_channel)
+    @commands.check(audio_playing)
     async def _pause(self, ctx):
         client = ctx.guild.voice_client
         if client.is_paused():
