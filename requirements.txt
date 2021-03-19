@@ -1,0 +1,6 @@
+ffmpeg
+PyNaCl
+youtube_dl
+discord
+pymongo
+dnspython
