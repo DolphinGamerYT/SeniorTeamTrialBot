@@ -1,9 +1,12 @@
 {
-    "token": "discord_token",
+    "token": "NDQ1MTk1NzkyOTMyNzk4NDg0.Wvgq5A.weaVgKCEgvb1Yih0KfC85FHVru4",
+    "prefix": "-",
+    "color": "#00E0FF",
     "mongodb": {
-        "mongodb_url": "MongoURL",
+        "mongodb_url": "mongodb+srv://dolphln:5Eda1BoafNnt4PFM@testcluster.jp7qo.mongodb.net/test?authSource=admin&replicaSet=atlas-2w8xi1-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true",
         "mongodb_database": "bot_database"
     },
-    "prefix": "-",
-    "color": "#00E0FF"
+    "blacklist": [
+
+    ]
 }
