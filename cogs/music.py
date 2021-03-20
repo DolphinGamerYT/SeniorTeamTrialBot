@@ -246,7 +246,9 @@ class GuildInfo:
         self.volume = 100
 
     def get_max_pages(self) -> int:
-        return math.ceil(len(self.queue)/10)-1
+        max_pages = math.ceil(len(self.queue)/10)-1
+
+        return max_pages
 
     def get_queue_paged(self, page):
         max_pages = self.get_max_pages()
