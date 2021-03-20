@@ -1,0 +1,9 @@
+{
+    "token": "discord_token",
+    "mongodb": {
+        "mongodb_url": "MongoURL",
+        "mongodb_database": "bot_database"
+    },
+    "prefix": "-",
+    "color": "#00E0FF"
+}
