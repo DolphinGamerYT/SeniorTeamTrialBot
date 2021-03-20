@@ -78,7 +78,6 @@ class Music(commands.Cog):
 
     @commands.command(name="pause", aliases=["resume"])
     @commands.guild_only()
-    @commands.check(audio_playing)
     @commands.check(in_voice_channel)
     @commands.check(audio_playing)
     async def _pause(self, ctx):
@@ -151,6 +150,7 @@ class Music(commands.Cog):
         embed.title = "Now playing"
         await ctx.channel.send(embed=embed)
 
+
 class GuildInfo:
 
     def __init__(self, guild_id) -> None:
@@ -188,13 +188,16 @@ class Song:
 
     def get_embed(self) -> discord.Embed:
         embed = discord.Embed(
-            title="Song details", description=f"Now playing -> [{self.title}]({self.url})")
+            title="Song details", description=f"Now playing: ```{self.channel_name} - {self.title}```")
+
+        embed.add_field(name="Title", value=f"[{self.title}]({self.url})")
         embed.add_field(
             name="Author", value=f"[{self.channel_name}]({self.channel_url})")
 
         song_duration = datetime.fromtimestamp(self.duration)
         embed.add_field(
             name="Duration", value=f"{add_zero(song_duration.minute)}:{add_zero(song_duration.second)}")
+
         embed.set_thumbnail(url=self.thumbnail)
         return embed
 
