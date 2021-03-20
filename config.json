@@ -1,5 +1,5 @@
 {
-    "token": "NDQ1MTk1NzkyOTMyNzk4NDg0.Wvgq5A.weaVgKCEgvb1Yih0KfC85FHVru4",
+    "token": "discord_token",
     "prefix": "-",
     "color": "#00E0FF",
     "mongodb": {
@@ -7,6 +7,7 @@
         "mongodb_database": "bot_database"
     },
     "blacklist": [
-
-    ]
+        "noob"
+    ],
+    "log_channel": 0
 }
