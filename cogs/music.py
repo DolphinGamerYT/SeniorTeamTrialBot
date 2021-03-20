@@ -175,7 +175,64 @@ class Music(commands.Cog):
 
     @commands.command(name="queue")
     async def _queue(self, ctx):
-        await ctx.send("")
+        state = self.get_state(ctx.guild)
+
+        pages = state.get_max_pages()
+        print(pages)
+        page = 0
+        only_first = False
+
+        if pages == -1:
+            return await ctx.channel.send(content="```There's nothing in the queue```")
+        elif pages == 0:
+            only_first = True
+
+        songs = ""
+        count = (10*page)+1
+        for song in state.get_queue_paged(page):
+            song_duration = datetime.fromtimestamp(song.duration)
+            duration = f"{add_zero(song_duration.minute)}:{add_zero(song_duration.second)}"
+            songs += f"{count}. {song.title} - {duration}\n"
+            count += 1
+        message = await ctx.channel.send(f"```{songs}\n\n{page+1}/{pages+1}```")
+
+        if only_first:
+            return
+
+        await message.add_reaction("◀️")
+        await message.add_reaction("▶️")
+
+        def check(reaction, user):
+            return user == ctx.author and str(reaction.emoji) in ["◀️", "▶️"]
+
+        while True:
+            try:
+                reaction, user = await self.bot.wait_for("reaction_add", timeout=60, check=check)
+                await message.remove_reaction(reaction, user)
+
+                if str(reaction.emoji) == "▶️":
+                    page += 1
+
+                elif str(reaction.emoji) == "◀️":
+                    page -= 1
+
+                if page > pages:
+                    page = pages
+                elif page < 0:
+                    page = 0
+
+                songs = ""
+                count = (10*page)+1
+                for song in state.get_queue_paged(page):
+                    song_duration = datetime.fromtimestamp(song.duration)
+                    duration = f"{add_zero(song_duration.minute)}:{add_zero(song_duration.second)}"
+                    songs += f"{count}. {song.title} - {duration}\n"
+                    count += 1
+                await message.edit(content=f"```{songs}\n\n{page+1}/{pages+1}```")
+            except Exception as e:
+                await message.clear_reactions()
+                raise e
+                break
 
 class GuildInfo:
 
