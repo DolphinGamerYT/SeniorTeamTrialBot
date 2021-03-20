@@ -8,6 +8,9 @@ import main
 from modules import utils, youtube
 
 
+FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
+
+
 def add_zero(num):
     if int(num) <= 9:
         return "0" + str(num)
@@ -99,16 +102,14 @@ class Music(commands.Cog):
 
     def _play_song(self, client, state, song):
         state.playing = state.queue.pop(0)
+        print(state.playing)
         source = discord.PCMVolumeTransformer(
-            discord.FFmpegPCMAudio(song.stream_url, executable="C:/bin/ffmpeg.exe"), volume=state.volume/100)
+            discord.FFmpegPCMAudio(song.stream_url, **FFMPEG_OPTIONS), volume=state.volume/100)
 
         def after_playing(err):
-            if len(state.queue) > 0:
+            if len(state.queue) > 0 and client and client.channel and client.source:
                 next_song = state.queue.pop(0)
                 self._play_song(client, state, next_song)
-            else:
-                asyncio.run_coroutine_threadsafe(client.disconnect(),
-                                                 self.bot.loop)
 
         client.play(source, after=after_playing)
 
@@ -133,6 +134,7 @@ class Music(commands.Cog):
         embed.title = "Added to the queue"
         await ctx.channel.send(embed=embed)
 
+        print(state.playing)
         if state.playing is None:
             self._play_song(client, state, song)
 
@@ -140,7 +142,6 @@ class Music(commands.Cog):
     @commands.guild_only()
     @commands.check(in_voice_channel)
     @commands.check(audio_playing)
-    @commands.command(name="playing", aliases=["np", "nowplaying"])
     async def _playing(self, ctx):
         state = self.get_state(ctx.guild)
         if state.playing is None:
@@ -151,6 +152,23 @@ class Music(commands.Cog):
         embed.title = "Now playing"
         await ctx.channel.send(embed=embed)
 
+    @commands.command(name="skip")
+    @commands.guild_only()
+    @commands.check(in_voice_channel)
+    @commands.check(audio_playing)
+    async def _skip(self, ctx):
+        state = self.get_state(ctx.guild)
+        client = ctx.guild.voice_client
+
+        client.stop()
+        embed = discord.Embed(title="Song Skipped", description="The song has been skipped.", color=self.bot.color, timestamp=datetime.utcnow())
+        embed.set_footer(
+            text=f"Skipped by {ctx.author}", icon_url=f"{ctx.author.avatar_url}")
+        await ctx.channel.send(embed=embed)
+
+    @commands.command(name="queue")
+    async def _queue(self, ctx):
+        await ctx.send("")
 
 class GuildInfo:
 
