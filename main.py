@@ -3,9 +3,9 @@ import json
 import codecs
 from discord.ext import commands
 
-from modules import utils
+from modules import utils, mongodbwrapper
 
-cogs = ['cogs.error_handler', 'cogs.music']
+cogs = ['cogs.error_handler', 'cogs.music', 'cogs.moderation']
 
 
 class Bot(commands.AutoShardedBot):
@@ -25,6 +25,8 @@ class Bot(commands.AutoShardedBot):
         self.devs = [
             310011769332695041
         ]
+
+        self.database = mongodbwrapper.Database()
 
     async def on_ready(self):
         print(f"{self.user.name} | {self.user.id} is online!")
