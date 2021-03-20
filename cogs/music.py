@@ -121,7 +121,6 @@ class Music(commands.Cog):
 
     @commands.command(name="play")
     @commands.guild_only()
-    @commands.check(in_voice_channel)
     async def _play(self, ctx, *, url):
         client = ctx.guild.voice_client
         state = self.get_state(ctx.guild)
@@ -134,8 +133,12 @@ class Music(commands.Cog):
 
         voice = ctx.author.voice
         bot_voice = ctx.guild.voice_client
-        if not (voice and bot_voice and voice.channel and bot_voice.channel and voice.channel == bot_voice.channel):
-            return True
+        if bot_voice is None:
+            if voice:
+                channel = ctx.author.voice.channel
+                client = await channel.connect()
+            else:
+                return await utils.send_error_embed(ctx.channel, "Error", "You are not in a voice channel.")
 
         song = Song(video)
         state.queue.append(song)
