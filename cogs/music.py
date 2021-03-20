@@ -186,7 +186,6 @@ class Music(commands.Cog):
         state = self.get_state(ctx.guild)
 
         pages = state.get_max_pages()
-        print(pages)
         page = 0
         only_first = False
 
