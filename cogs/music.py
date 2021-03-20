@@ -217,7 +217,7 @@ class Song:
 
     def get_embed(self) -> discord.Embed:
         embed = discord.Embed(
-            title="Song details", description=f"Now playing: ```{self.title}```")
+            title="Song details", description=f"```{self.title}```")
 
         embed.add_field(name="Title", value=f"[{self.title}]({self.url})")
         embed.add_field(
