@@ -100,13 +100,17 @@ class Music(commands.Cog):
                 text=f"Requested by {ctx.author}", icon_url=f"{ctx.author.avatar_url}")
             await ctx.channel.send(embed=embed)
 
-    def _play_song(self, client, state, song):
+    def _play_song(self, client, guild: discord.Guild):
+        state = self.get_state(guild)
+
         state.playing = state.queue.pop(0)
-        print(state.playing)
+
+        self.guilds[guild.id] = state
         source = discord.PCMVolumeTransformer(
-            discord.FFmpegPCMAudio(song.stream_url, **FFMPEG_OPTIONS), volume=state.volume/100)
+            discord.FFmpegPCMAudio(state.playing.stream_url, **FFMPEG_OPTIONS), volume=state.volume/100)
 
         def after_playing(err):
+            state = self.get_state(guild)
             if len(state.queue) > 0 and client and client.channel and client.source:
                 next_song = state.queue.pop(0)
                 self._play_song(client, state, next_song)
@@ -128,6 +132,7 @@ class Music(commands.Cog):
 
         song = Song(video)
         state.queue.append(song)
+        self.guilds[ctx.guild.id] = state
 
         embed = song.get_embed()
         embed.color = self.bot.color
@@ -135,8 +140,9 @@ class Music(commands.Cog):
         await ctx.channel.send(embed=embed)
 
         print(state.playing)
+        print(state.queue)
         if state.playing is None:
-            self._play_song(client, state, song)
+            self._play_song(client, ctx.guild)
 
     @commands.command(name="playing", aliases=["np", "nowplaying"])
     @commands.guild_only()
