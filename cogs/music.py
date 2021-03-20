@@ -257,7 +257,7 @@ class GuildInfo:
         elif page < 0:
             page = 0
 
-        paged_queue = [self.queue[i:i+4]
+        paged_queue = [self.queue[i:i+10]
                        for i in range(0, len(self.queue), 10)]
         return paged_queue[page]
 
