@@ -113,6 +113,9 @@ class Music(commands.Cog):
             state = self.get_state(guild)
             if len(state.queue) > 0 and client and client.channel and client.source:
                 self._play_song(client, guild)
+            else:
+                state.playing = None
+                self.guilds[guild.id] = state
 
         client.play(source, after=after_playing)
 
@@ -128,6 +131,11 @@ class Music(commands.Cog):
         except Exception as e:
             await utils.send_error_embed(ctx.channel, "Invalid URL", "The URL you have entered is not a valid video.")
             return
+
+        voice = ctx.author.voice
+        bot_voice = ctx.guild.voice_client
+        if not (voice and bot_voice and voice.channel and bot_voice.channel and voice.channel == bot_voice.channel):
+            return True
 
         song = Song(video)
         state.queue.append(song)
