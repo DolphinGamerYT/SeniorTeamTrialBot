@@ -112,8 +112,7 @@ class Music(commands.Cog):
         def after_playing(err):
             state = self.get_state(guild)
             if len(state.queue) > 0 and client and client.channel and client.source:
-                next_song = state.queue.pop(0)
-                self._play_song(client, state, next_song)
+                self._play_song(client, guild)
 
         client.play(source, after=after_playing)
 
