@@ -138,8 +138,6 @@ class Music(commands.Cog):
         embed.title = "Added to the queue"
         await ctx.channel.send(embed=embed)
 
-        print(state.playing)
-        print(state.queue)
         if state.playing is None:
             self._play_song(client, ctx.guild)
 
