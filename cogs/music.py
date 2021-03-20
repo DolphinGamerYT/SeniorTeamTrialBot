@@ -161,6 +161,8 @@ class Music(commands.Cog):
         client = ctx.guild.voice_client
 
         client.stop()
+        if len(state.queue) != 0:
+            self._play_song(client, ctx.guild)
         embed = discord.Embed(title="Song Skipped", description="The song has been skipped.", color=self.bot.color, timestamp=datetime.utcnow())
         embed.set_footer(
             text=f"Skipped by {ctx.author}", icon_url=f"{ctx.author.avatar_url}")
