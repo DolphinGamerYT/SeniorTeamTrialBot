@@ -136,6 +136,7 @@ class Music(commands.Cog):
         if state.playing is None:
             self._play_song(client, state, song)
 
+    @commands.command(name="playing", aliases=["np", "nowplaying"])
     @commands.guild_only()
     @commands.check(in_voice_channel)
     @commands.check(audio_playing)
