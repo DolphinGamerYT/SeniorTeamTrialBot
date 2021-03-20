@@ -3,7 +3,7 @@
     "prefix": "-",
     "color": "#00E0FF",
     "mongodb": {
-        "mongodb_url": "mongodb+srv://dolphln:5Eda1BoafNnt4PFM@testcluster.jp7qo.mongodb.net/test?authSource=admin&replicaSet=atlas-2w8xi1-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true",
+        "mongodb_url": "",
         "mongodb_database": "bot_database"
     },
     "blacklist": [
