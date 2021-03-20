@@ -174,6 +174,8 @@ class Music(commands.Cog):
         await ctx.channel.send(embed=embed)
 
     @commands.command(name="queue")
+    @commands.guild_only()
+    @commands.check(in_voice_channel)
     async def _queue(self, ctx):
         state = self.get_state(ctx.guild)
 
