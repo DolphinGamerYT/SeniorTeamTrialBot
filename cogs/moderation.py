@@ -88,7 +88,7 @@ class Moderation(commands.Cog):
     async def _add_ban(self, user: discord.Member, reason: str, staff: discord.Member):
         await self.bot.database.add_ban(user, reason, staff)
 
-        await user.ban(reason=reason)
+        # await user.ban(reason=reason)
 
         embed = discord.Embed(
             title="New Ban", color=self.bot.color, timestamp=datetime.utcnow())
@@ -149,6 +149,12 @@ class Moderation(commands.Cog):
         await self._add_mute(user, reason, duration, ctx.author)
         await ctx.message.delete()
         await ctx.channel.send(content=f"✅ User was 🔇mutted for `{duration}` because of `{reason}`.", delete_after=5)
+
+    @commands.command(name="kick")
+    async def _kick(self, ctx, user: discord.Member, *, reason="Not specified"):
+        await self._add_kick(user, reason, ctx.author)
+        await ctx.message.delete()
+        await ctx.channel.send(content=f"✅ User was 👊kicked for `{reason}`.", delete_after=5)
 
 
 def setup(bot):
