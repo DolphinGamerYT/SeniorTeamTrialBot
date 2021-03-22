@@ -18,6 +18,10 @@ class Database:
         if database in self.client.list_database_names():
             self.db = self.client[database]
             print("Database Connected!")
+        else:
+            print("The database specified in the config does not exist!\n")
+            input("Press enter to exit...")
+            quit()
 
         self.bans = self.db["bans"]
         self.kicks = self.db["kicks"]
