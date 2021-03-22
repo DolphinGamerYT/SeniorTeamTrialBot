@@ -77,7 +77,7 @@ class Moderation(commands.Cog):
         else:
             embed.add_field(name="Duration", value=f"Permanent", inline=True)
 
-        embed.add_field(name="Reason", value=f"{user.mention}", inline=True)
+        embed.add_field(name="Reason", value=f"{reason}", inline=True)
 
         await self.log_channel.send(embed=embed)
 
@@ -94,7 +94,7 @@ class Moderation(commands.Cog):
                         value=f"`{user.id}`", inline=True)
         embed.add_field(name="Staff", value=f"{staff.mention}", inline=True)
 
-        embed.add_field(name="Reason", value=f"{user.mention}", inline=True)
+        embed.add_field(name="Reason", value=f"{reason}", inline=True)
 
         await self.log_channel.send(embed=embed)
 
@@ -111,7 +111,7 @@ class Moderation(commands.Cog):
                         value=f"`{user.id}`", inline=True)
         embed.add_field(name="Staff", value=f"{staff.mention}", inline=True)
 
-        embed.add_field(name="Reason", value=f"{user.mention}", inline=True)
+        embed.add_field(name="Reason", value=f"{reason}", inline=True)
 
         await self.log_channel.send(embed=embed)
 
