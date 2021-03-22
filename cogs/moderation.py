@@ -3,7 +3,7 @@ import discord
 import re
 import codecs
 import json
-from discord.ext import commands, task
+from discord.ext import commands, tasks
 from datetime import datetime
 
 import main
@@ -26,7 +26,7 @@ class Moderation(commands.Cog):
 
         self.mutes = self.bot.database.get_mutes()
 
-    @task.loop(minutes=1)
+    @tasks.loop(minutes=1)
     async def mute_task(self):
         time_now = datetime.utcnow()
         timestamp_now = datetime.timestamp(time_now)
