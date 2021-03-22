@@ -141,6 +141,15 @@ class Moderation(commands.Cog):
         await ctx.message.delete()
         await ctx.channel.send(content=f"✅ User was 🔇mutted for `{reason}`.", delete_after=5)
 
+    @commands.command(name="tempmute")
+    async def _tempmute(self, ctx, user: discord.Member, duration: int, *, reason="Not specified"):
+        if await self.bot.database.is_muted(user):
+            return await utils.send_error_embed(ctx.channel, "Error", "User is already muted")
+
+        await self._add_mute(user, reason, duration, ctx.author)
+        await ctx.message.delete()
+        await ctx.channel.send(content=f"✅ User was 🔇mutted for `{duration}` because of `{reason}`.", delete_after=5)
+
 
 def setup(bot):
     bot.add_cog(Moderation(bot))
