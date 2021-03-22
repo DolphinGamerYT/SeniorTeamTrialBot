@@ -19,9 +19,9 @@ class Moderation(commands.Cog):
             log_channel_id = config["log_channel"]
             muted_role_id = config["muted_role"]
 
-        self.log_channel = discord.utils.find(
-            bot.get_all_channels, id=log_channel_id)
-        self.muted_role = discord.utils.find(
+        self.log_channel = discord.utils.get(
+            bot.get_all_channels(), id=log_channel_id)
+        self.muted_role = discord.utils.get(
             self.log_channel.guild.roles, id=muted_role_id)
 
         self.mutes = self.bot.database.get_mutes()
