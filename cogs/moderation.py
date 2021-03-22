@@ -139,7 +139,7 @@ class Moderation(commands.Cog):
 
         await self._add_mute(user, reason, 0, ctx.author)
         await ctx.message.delete()
-        await ctx.channel.send(content=f"✅ User was 🔇mutted for `{reason}`.", delete_after=5)
+        await ctx.channel.send(content=f"✅ User was 🔇muted for `{reason}`.", delete_after=5)
 
     @commands.command(name="tempmute")
     async def _tempmute(self, ctx, user: discord.Member, duration: int, *, reason="Not specified"):
@@ -148,7 +148,7 @@ class Moderation(commands.Cog):
 
         await self._add_mute(user, reason, duration, ctx.author)
         await ctx.message.delete()
-        await ctx.channel.send(content=f"✅ User was 🔇mutted for `{duration}` because of `{reason}`.", delete_after=5)
+        await ctx.channel.send(content=f"✅ User was 🔇muted for `{duration}` because of `{reason}`.", delete_after=5)
 
     @commands.command(name="kick")
     async def _kick(self, ctx, user: discord.Member, *, reason="Not specified"):
