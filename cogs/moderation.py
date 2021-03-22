@@ -131,6 +131,15 @@ class Moderation(commands.Cog):
         await ctx.message.delete()
         await ctx.channel.send(content=f"✅ User was 🔨banned for `{reason}`.", delete_after=5)
 
+    @commands.command(name="mute")
+    async def _mute(self, ctx, user: discord.Member, *, reason="Not specified"):
+        if await self.bot.database.is_muted(user):
+            return await utils.send_error_embed(ctx.channel, "Error", "User is already muted")
+
+        await self._add_mute(user, reason, 0, ctx.author)
+        await ctx.message.delete()
+        await ctx.channel.send(content=f"✅ User was 🔇mutted for `{reason}`.", delete_after=5)
+
 
 def setup(bot):
     bot.add_cog(Moderation(bot))
