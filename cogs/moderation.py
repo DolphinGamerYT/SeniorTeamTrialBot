@@ -46,7 +46,8 @@ class Moderation(commands.Cog):
 
         user = await self.log_channel.guild.get_member(user_id)
         if user is not None:
-            await user.remove_roles(self.muted_role)
+            try:
+                await user.remove_roles(self.muted_role)
             except Exception:
                 str("User has not the role")
 
