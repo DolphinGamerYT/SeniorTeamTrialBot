@@ -46,6 +46,8 @@ class Moderation(commands.Cog):
         user = await self.log_channel.guild.get_member(user_id)
         if user is not None:
             await user.remove_roles(self.muted_role)
+            except Exception:
+                str("User has not the role")
 
         embed = discord.Embed(
             title="New Unmute", color=self.bot.color, timestamp=datetime.utcnow())
