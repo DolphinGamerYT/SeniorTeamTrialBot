@@ -48,7 +48,7 @@ class Moderation(commands.Cog):
             await user.remove_roles(self.muted_role)
 
         embed = discord.Embed(
-            title="New Umute", color=self.bot.color, timestamp=datetime.utcnow())
+            title="New Unmute", color=self.bot.color, timestamp=datetime.utcnow())
         embed.add_field(name="User unmuted",
                         value=f"<@{user_id}>", inline=True)
         embed.add_field(name="User unmuted ID",
