@@ -7,6 +7,7 @@ from discord.ext import commands, tasks
 from datetime import datetime
 
 import main
+from modules import utils
 
 
 class Moderation(commands.Cog):
