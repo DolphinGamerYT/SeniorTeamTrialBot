@@ -9,5 +9,6 @@
     "blacklist": [
         "noob"
     ],
-    "log_channel": 0
+    "log_channel": 0,
+    "muted_role": 0
 }
