@@ -122,6 +122,12 @@ class Moderation(commands.Cog):
                 if len(re.findall(regex, message.content)) != 0:
                     return await message.delete()
 
+    @commands.command(name="ban")
+    async def _ban(self, ctx, user: discord.Member, *, reason="Not specified"):
+        await self._add_ban(user, reason, ctx.author)
+        await ctx.message.delete()
+        await ctx.channel.send(content=f"✅ User was 🔨banned for `{reason}`.", delete_after=5)
+
 
 def setup(bot):
     bot.add_cog(Moderation(bot))
