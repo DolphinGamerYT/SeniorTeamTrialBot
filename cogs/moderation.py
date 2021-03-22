@@ -150,6 +150,15 @@ class Moderation(commands.Cog):
         await ctx.message.delete()
         await ctx.channel.send(content=f"✅ User was 🔇muted for `{duration}` because of `{reason}`.", delete_after=5)
 
+    @commands.command(name="unmute")
+    async def _unmute(self, ctx, user: discord.Member):
+        if not await self.bot.database.is_muted(user):
+            return await utils.send_error_embed(ctx.channel, "Error", "User is not muted!")
+
+        await self._remove_mute(user.id)
+        await ctx.message.delete()
+        await ctx.channel.send(content=f"✅ User has been 🔈unmuted.", delete_after=5)
+
     @commands.command(name="kick")
     async def _kick(self, ctx, user: discord.Member, *, reason="Not specified"):
         await self._add_kick(user, reason, ctx.author)
