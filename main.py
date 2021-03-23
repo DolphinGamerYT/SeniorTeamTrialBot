@@ -5,7 +5,7 @@ from discord.ext import commands
 
 from modules import utils, mongodbwrapper
 
-cogs = ['cogs.error_handler', 'cogs.music', 'cogs.moderation']
+cogs = ['cogs.cogs', 'cogs.music', 'cogs.moderation']
 
 
 class Bot(commands.AutoShardedBot):
